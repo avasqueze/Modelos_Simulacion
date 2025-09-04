@@ -2,6 +2,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from os.path import basename, exists
 
 
 # def correr_simulacion(estado, p1, p2, num_pasos):
@@ -147,3 +148,91 @@ def Estado(**variables):
         pd.Series: Serie con las variables de estado.
     """
     return pd.Series(variables, name="state")
+
+def run_simulation(system, growth_func):
+    results = TimeSeries()
+    results[system.t_0] = system.p_0
+    
+    for t in range(system.t_0, system.t_end):
+        growth = growth_func(t, results[t], system)
+        results[t+1] = results[t] + growth
+        
+    return results
+
+def download(url):
+    filename = basename(url)
+    if not exists(filename):
+        from urllib.request import urlretrieve
+        local, _ = urlretrieve(url, filename)
+        print('Downloaded ' + local)
+
+class System(SettableNamespace):
+    """Contains system parameters and their values.
+
+    Takes keyword arguments and stores them as attributes.
+    """
+
+    pass
+
+
+class Params(SettableNamespace):
+    """Contains system parameters and their values.
+
+    Takes keyword arguments and stores them as attributes.
+    """
+
+    pass
+
+class SettableNamespace(SimpleNamespace):
+    """Contains a collection of parameters.
+
+    Used to make a System object.
+
+    Takes keyword arguments and stores them as attributes.
+    """
+
+    def __init__(self, namespace=None, **kwargs):
+        """Initialize a SettableNamespace.
+
+        Args:
+            namespace (SettableNamespace, optional): Namespace to copy. Defaults to None.
+            **kwargs: Keyword arguments to store as attributes.
+        """
+        super().__init__()
+        if namespace:
+            self.__dict__.update(namespace.__dict__)
+        self.__dict__.update(kwargs)
+
+    def get(self, name, default=None):
+        """Look up a variable.
+
+        Args:
+            name (str): Name of the variable to look up.
+            default (any, optional): Value returned if `name` is not present. Defaults to None.
+
+        Returns:
+            any: Value of the variable or default.
+        """
+        try:
+            return self.__getattribute__(name, default)
+        except AttributeError:
+            return default
+
+    def set(self, **variables):
+        """Make a copy and update the given variables.
+
+        Args:
+            **variables: Keyword arguments to update.
+
+        Returns:
+            Params: New Params object with updated variables.
+        """
+        new = copy(self)
+        new.__dict__.update(variables)
+        return new
+
+def plot_estimates():
+    census.plot(style=':', label='US Census')
+    un.plot(style='--', label='UN DESA')
+    decorar(xlabel='Año', 
+             ylabel='Población mundial (miles de millones)') 
