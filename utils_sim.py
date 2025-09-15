@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from os.path import basename, exists
+from types import SimpleNamespace
 
 
 # def correr_simulacion(estado, p1, p2, num_pasos):
@@ -166,23 +167,6 @@ def download(url):
         local, _ = urlretrieve(url, filename)
         print('Downloaded ' + local)
 
-class System(SettableNamespace):
-    """Contains system parameters and their values.
-
-    Takes keyword arguments and stores them as attributes.
-    """
-
-    pass
-
-
-class Params(SettableNamespace):
-    """Contains system parameters and their values.
-
-    Takes keyword arguments and stores them as attributes.
-    """
-
-    pass
-
 class SettableNamespace(SimpleNamespace):
     """Contains a collection of parameters.
 
@@ -230,6 +214,23 @@ class SettableNamespace(SimpleNamespace):
         new = copy(self)
         new.__dict__.update(variables)
         return new
+
+class System(SettableNamespace):
+    """Contains system parameters and their values.
+
+    Takes keyword arguments and stores them as attributes.
+    """
+
+    pass
+
+
+class Params(SettableNamespace):
+    """Contains system parameters and their values.
+
+    Takes keyword arguments and stores them as attributes.
+    """
+
+    pass
 
 def plot_estimates():
     census.plot(style=':', label='US Census')
