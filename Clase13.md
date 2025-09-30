@@ -11,9 +11,8 @@ En salud, los modelos DES se pueden usar para modelar, por ejemplo:
 
 - Rutas de atención de pacientes.
 - Sistemas telefónicos.
-- El tránsito de resultados diagnósticos.
-
-¡Y más!
+- Requerimientos.
+¡Y otros!
 
 Los modelos DES son extremadamente útiles para responder **preguntas de “qué pasaría si…?”** sobre cambios en procesos o rutas.
 
@@ -53,7 +52,7 @@ Finalmente, puedes **visualizar** a las entidades moviéndose por el sistema y *
 
 Un **modelo estocástico** incorpora **aleatoriedad y variabilidad**. Cada **ejecución** del modelo toma **muestras aleatorias** para tiempos entre llegadas, duraciones de actividades y otras variables clave. Eso nos permite capturar un **rango** de escenarios posibles y obtener **conclusiones más robustas**.
 
-¿Qué pasa si en una ejecución se muestrean **tiempos de actividad inusualmente largos** (mala suerte)? ¿O **tiempos entre llegadas inusualmente largos** (buena suerte)?
+¿Qué pasa si en una ejecución se muestrean **tiempos de actividad inusualmente largos**? ¿O **tiempos entre llegadas inusualmente largos**?
 
 Necesitamos correr una **simulación estocástica muchas veces** y **resumir los resultados** de todas esas ejecuciones para tener salidas representativas del modelo.
 
@@ -64,9 +63,9 @@ Necesitamos correr una **simulación estocástica muchas veces** y **resumir los
 
 ![](images/example_des_simple.png)
 
-### Entidades
+### Entidades (Entity)
 
-Las **entidades** son los “objetos” que fluyen por los procesos secuenciales del sistema modelado (por ejemplo, **pacientes**, **resultados de pruebas**, **llamadas** a un call center).
+Las **entidades** son los “objetos” que fluyen por los procesos secuenciales del sistema modelado (por ejemplo, **pacientes**, **clientes**, **requerimientos**, **llamadas** a un call center).
 
 Cada entidad puede tener ciertos **atributos** que “lleva consigo” y que **determinan su recorrido** a través del sistema, por ejemplo:
 
@@ -84,7 +83,7 @@ El **tiempo entre llegadas** especifica cuánto hay entre la generación de una 
 
 Los tiempos entre llegadas pueden ser **fijos**, pero típicamente se **muestrean aleatoriamente** de una **distribución** para capturar la **variabilidad** (aunque sea pequeña).
 
-Con frecuencia se usa la **distribución exponencial** para muestrear **tiempos entre llegadas**. A menudo hay **más de un generador** en un sistema (p. ej., llegada de pacientes en ambulancia, por cuenta propia, remitidos por APS).
+Con frecuencia se usa la **distribución exponencial** para muestrear **tiempos entre llegadas**. A menudo hay **más de un generador** en un sistema (por ejwmplo, llegada de pacientes en ambulancia, por cuenta propia, remitidos por APS).
 
 ![](images/generators_iat.png)
 
